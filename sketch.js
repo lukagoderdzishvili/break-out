@@ -38,7 +38,7 @@ function draw(){
   background(0, 0, 0);
   
   if(game){
-    ball.active();
+    ballActive();
   }
   
   paddle.add(); 
@@ -57,11 +57,11 @@ function draw(){
 
 
 
-ball.active = function(){
-  ball.show();
-  ball.move();
-  ball.collised(); // check distance with paddle
-  ball.checkBall(); // check distance with bricks and more addons
+  function ballActive(){
+    ball.show();
+    ball.move();
+    ball.collised(); // check distance with paddle
+    ball.checkBall(); // check distance with bricks and more addons
 }
 
 
