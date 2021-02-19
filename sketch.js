@@ -7,10 +7,11 @@ var ball,
     lifeLost = false,
     gameInfo = true,
     gameIsOver = false,
-    game = true, 
-    restart = false,
+    game = true,
+    restart = false, 
     gameIsColleted = false;
 
+var playAgain;
 
 // BRICKS CONSTS
 const brick_width = 68,
@@ -26,12 +27,19 @@ function setup(){
   
   paddle = new board(175, 370, 50, 10, 10);
   ball = new ball(200, 200, 30);
-  playAgain = new rstBtn("darkMagenta", "firebrick", 20, 200, 300, "Play again");
   
   createBricks();
+  playAgain = new rstBtn("darkMagenta", "firebrick", 20, 200, 300, "Play again");
   
   
-  
+}
+
+
+function ballActive(){
+  ball.show();
+  ball.move();
+  ball.collised(); // check distance with paddle
+  ball.checkBall(); // check distance with bricks and more addons
 }
 
 
@@ -41,28 +49,35 @@ function draw(){
   background(0, 0, 0);
   
   if(game){
-  ball.show();
-  ball.move();
-  ball.collised(); // check distance with paddle
-  ball.checkBall(); // check distance with bricks and more addons
+    ballActive();
   }
+  
   paddle.add(); 
   
  
   drawBricks(); 
   
   scoreAndLiveText(); // live and score count
+
+
+  checkGame();
   
   
+
+}
+
+
+function checkGame(){
+
   //when ball is lost
   if(lifeLost){
     lostLifeText();
-  };
+  }
   
   //welcome  
   if(gameInfo){
     welcomeText();
-  };
+  }
   
   //lose game 
   if(live < 1){
@@ -71,28 +86,25 @@ function draw(){
     ball.x = -500;
     game = false;
     restart = true;
-  };
-    
+  }
   //win game 
   if(score == 25){
     gameIsColleted = true;
-  };
+  }
   
   if(gameIsColleted){
     champion();
     ball.x = -500;
     game = false;
-    restart = true;  
+    restart = true;
     
-  };
-  
+  }
+
   if(restart){
     playAgain.show();
     playAgain.clicked();
   };
-
 }
-
 
 
 //txt for ball lost
