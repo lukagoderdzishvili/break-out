@@ -34,22 +34,11 @@ function setup(){
   
 }
 
-
-function ballActive(){
-  ball.show();
-  ball.move();
-  ball.collised(); // check distance with paddle
-  ball.checkBall(); // check distance with bricks and more addons
-}
-
-
-
-
 function draw(){
   background(0, 0, 0);
   
   if(game){
-    ballActive();
+    ball.active();
   }
   
   paddle.add(); 
@@ -65,6 +54,16 @@ function draw(){
   
 
 }
+
+
+
+ball.prototype.active = function(){
+  ball.show();
+  ball.move();
+  ball.collised(); // check distance with paddle
+  ball.checkBall(); // check distance with bricks and more addons
+}
+
 
 
 function checkGame(){
