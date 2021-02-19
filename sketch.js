@@ -8,6 +8,7 @@ var ball,
     gameInfo = true,
     gameIsOver = false,
     game = true, 
+    restart = false,
     gameIsColleted = false;
 
 
@@ -25,6 +26,7 @@ function setup(){
   
   paddle = new board(175, 370, 50, 10, 10);
   ball = new ball(200, 200, 30);
+  playAgain = new rstBtn("darkMagenta", "firebrick", 20, 200, 300, "Play again");
   
   createBricks();
   
@@ -55,12 +57,12 @@ function draw(){
   //when ball is lost
   if(lifeLost){
     lostLifeText();
-  }
+  };
   
   //welcome  
   if(gameInfo){
     welcomeText();
-  }
+  };
   
   //lose game 
   if(live < 1){
@@ -68,18 +70,26 @@ function draw(){
     lifeLost = false;
     ball.x = -500;
     game = false;
-  }
+    restart = true;
+  };
+    
   //win game 
   if(score == 25){
     gameIsColleted = true;
-  }
+  };
   
   if(gameIsColleted){
     champion();
     ball.x = -500;
     game = false;
+    restart = true;  
     
-  }
+  };
+  
+  if(restart){
+    playAgain.show();
+    playAgain.clicked();
+  };
 
 }
 
@@ -149,4 +159,25 @@ function scoreAndLiveText(){
   textSize(12);
   text("Score : " + score, 330, 20);
   text("Live : " + live, 15, 20);
+}
+
+function rstBtn(extract, strk, size, x, y, str){
+  this.extract = extract;
+  this.strk = strk;
+  this.size = size;
+  this.x = x;
+  this.y = y;
+  this.str = str;
+  
+  this.show = function(){
+    text(str, x, y);
+  }
+
+  this.clicked = function(){
+    let distance = int(dist(mouseX, mouseY, this.x, this.y));
+    if(distance < 20){
+      window.location.reload(true);
+      return 0;
+    }
+  }
 }
