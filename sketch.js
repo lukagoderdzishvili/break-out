@@ -57,7 +57,7 @@ function draw(){
 
 
 
-ball.prototype.active = function(){
+ball.active = function(){
   ball.show();
   ball.move();
   ball.collised(); // check distance with paddle
